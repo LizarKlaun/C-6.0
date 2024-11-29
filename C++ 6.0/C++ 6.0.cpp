@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -14,10 +15,11 @@ class Auto {
 	};
 public:
 	Auto() {
+		int col = rand() % 3 + 1;
 		wheels = 4;
 		door = 4;
-		speed = 90;
-		color = 2;
+		speed = rand() % 100;
+		ChooseColor(col);
 	}
 	void ChooseColor(int col) {
 		if (col == 1)
@@ -52,7 +54,7 @@ public:
 		this->color = color;
 	}
 	void PrintInfo() {
-		cout << "Your car : \n" << "Count of wheels : " << wheels << "\nCount of doors : " << door << "\nSpeed of car : " << speed << "km\\h" << "\nColor of car : " << color << endl;
+		cout << "Your car : \n" << "Count of wheels : " << wheels << "\nCount of doors : " << door << "\nSpeed of car : " << speed << "km\\h" << "\nColor of car : " << color << endl << "---------------------------" << endl;
 	}
 };
 
@@ -96,22 +98,16 @@ public:
 		autos[amountOfCars - 1].getColor();
 	}
 
-	void Deleter(int indexToDelete) {
-		if (indexToDelete < 0 || indexToDelete >= amountOfCars) {
-			cout << "Invalid index!" << endl;
-			return;
-		}
+	void Deleter() {
 		Auto* tempArrOfCars = new Auto[amountOfCars - 1];
 		int tempIndex = 0;
 
-		for (int i = 0; i < amountOfCars; i++) {
-			if (i != indexToDelete - 1) {
-				autos[amountOfCars - 1].getWheels();
-				autos[amountOfCars - 1].getDoor();
-				autos[amountOfCars - 1].getSpeed();
-				autos[amountOfCars - 1].getColor();
-				tempIndex++;
-			}
+		for (int i = 0; i < amountOfCars - 1; i++) {
+		    autos[tempIndex].getWheels(),
+			autos[tempIndex].getDoor(),
+			autos[tempIndex].getSpeed(),
+			autos[tempIndex].getColor();
+			tempIndex++;
 		}
 
 		DincrementAmountOfPoints();
@@ -140,13 +136,12 @@ int Parking::amountOfCars = 0;
 
 int main()
 {
+	srand(time(NULL));
 	Auto obj;
 	Parking obj1;
 	obj1.Adder(obj);
 	obj1.Adder(obj);
 	obj1.PrintAboutCars();
-	int index;
-	cin >> index;
-	obj1.Deleter(index);
+	obj1.Deleter();
 	obj1.PrintAboutCars();
 }
